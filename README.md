@@ -1,3 +1,3 @@
 # Algorithms
-Here are my implementation of some algoritms
-I did not implemented ready-for-use code, it was only for training.
+Here are my implementation of some algoritms.
+It is not a ready-for-use code, I implemented only for training.
