@@ -88,10 +88,3 @@ void Kruskal(Graph& graph)
 
 }
 
-#include <queue>
-void ggg()
-{
-    priority_queue<int> q;
-
-    auto r = find(q.begin(), q.end(), a);
-}
