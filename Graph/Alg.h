@@ -2,5 +2,6 @@
 
 #include "Graph.h"
 
-void BFS(Graph& graph, NodeNumber source);
+void BFS(Graph& graph, VertexNumber source);
 void DFS(Graph& graph);
+void Kruskal(Graph& graph);

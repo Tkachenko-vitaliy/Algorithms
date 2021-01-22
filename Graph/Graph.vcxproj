@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Search.cpp" />
+    <ClCompile Include="SpanningTree.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>

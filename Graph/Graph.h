@@ -3,16 +3,26 @@
 #include <list>
 #include <vector>
 
-using NodeNumber = unsigned int;
+using VertexNumber = size_t;
+using VertexWeight = int;
 
 class Graph
 {
 public:
+    struct Vertex
+    {
+        Vertex(VertexNumber n, VertexWeight w = 0) : number(n), weight(w) {}
 
-    using AdjList = std::list<NodeNumber>;
+        VertexNumber number;
+        VertexWeight weight;
+    };
+    using AdjList = std::list<Vertex>;
     using AdjListSet = std::vector< AdjList>;
 
     AdjListSet adjListSet;
 
-    void addNode(NodeNumber node, std::initializer_list<NodeNumber> adjNodes);
+    using VertexNumberWeight = std::pair< VertexNumber, VertexWeight>;
+
+    void addVertex(VertexNumber number, std::initializer_list<VertexNumber> adjVertices);
+    void addVertex(VertexNumber number, std::initializer_list<VertexNumberWeight> adjVertices);
 };

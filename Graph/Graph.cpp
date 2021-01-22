@@ -2,11 +2,23 @@
 //
 #include "Graph.h"
 
-void Graph::addNode(NodeNumber node, std::initializer_list<NodeNumber> adjNodes)
+void Graph::addVertex(VertexNumber number, std::initializer_list<VertexNumber> adjVertices)
 {
-    if (node >= (NodeNumber)adjListSet.size())
-        adjListSet.resize(node+1);
-    adjListSet[node] = adjNodes;
+    if (number >= adjListSet.size())
+        adjListSet.resize(number +1);
+    for (auto &item : adjVertices)
+    {
+        adjListSet[number].push_back(Vertex(item));
+    }
 }
 
 
+void Graph::addVertex(VertexNumber number, std::initializer_list<VertexNumberWeight> adjVertices)
+{
+    if (number >= adjListSet.size())
+        adjListSet.resize(number + 1);
+    for (auto &item : adjVertices)
+    {
+        adjListSet[number].push_back(Vertex(item.first, item.second));
+    }
+}

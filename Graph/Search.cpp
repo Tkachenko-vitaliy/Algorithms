@@ -11,7 +11,7 @@ struct Attribute
 {
     int color;
     int distance;
-    int parent;
+    VertexNumber parent;
     int open;
     int close;
 
@@ -29,36 +29,36 @@ struct Attribute
 
 using  AttributeList = std::vector<Attribute>;
 
-void BFS(Graph& graph, NodeNumber source)
+void BFS(Graph& graph, VertexNumber source)
 {
     AttributeList attrList;
     attrList.resize(graph.adjListSet.size());
     attrList[source].color = Attribute::GRAY;
     attrList[source].distance = 0;
 
-    queue<int> visitQueue;
+    queue<VertexNumber> visitQueue;
     visitQueue.push(source);
 
     while (!visitQueue.empty())
     {
-        NodeNumber currentNode = visitQueue.front();
+        VertexNumber currentVertex = visitQueue.front();
         visitQueue.pop();
 
-        Graph::AdjList& ls = graph.adjListSet[currentNode];
-        for (auto adjNode : ls)
+        Graph::AdjList& ls = graph.adjListSet[currentVertex];
+        for (auto adjVertex : ls)
         {
-            if (attrList[adjNode].color == Attribute::WHITE)
+            if (attrList[adjVertex.number].color == Attribute::WHITE)
             {
-                attrList[adjNode].distance = attrList[currentNode].distance;
-                attrList[adjNode].color = Attribute::GRAY;
-                attrList[adjNode].distance++;
-                attrList[adjNode].parent = currentNode;
-                visitQueue.push(adjNode);
+                attrList[adjVertex.number].distance = attrList[currentVertex].distance;
+                attrList[adjVertex.number].color = Attribute::GRAY;
+                attrList[adjVertex.number].distance++;
+                attrList[adjVertex.number].parent = currentVertex;
+                visitQueue.push(adjVertex.number);
             }
         }
 
-        attrList[currentNode].color = Attribute::BLACK;
-        cout << currentNode << ' ';
+        attrList[currentVertex].color = Attribute::BLACK;
+        cout << currentVertex << ' ';
     }
 
     cout << endl;
@@ -72,26 +72,26 @@ void BFS(Graph& graph, NodeNumber source)
     }
 }
 
-void DFS(Graph& graph, AttributeList& attrList, NodeNumber currentNode, int& time)
+void DFS(Graph& graph, AttributeList& attrList, VertexNumber currentVertex, int& time)
 {
-    cout << currentNode << ' ';
+    cout << currentVertex << ' ';
 
     time++;
-    attrList[currentNode].open = time;
-    attrList[currentNode].color = Attribute::GRAY;
+    attrList[currentVertex].open = time;
+    attrList[currentVertex].color = Attribute::GRAY;
 
-    Graph::AdjList& al = graph.adjListSet[currentNode];
-    for (NodeNumber adjNode : al)
+    Graph::AdjList& al = graph.adjListSet[currentVertex];
+    for (auto adjVertex : al)
     {
-        if (attrList[adjNode].color == Attribute::WHITE)
+        if (attrList[adjVertex.number].color == Attribute::WHITE)
         {
-            attrList[adjNode].parent = currentNode;
-            DFS(graph,attrList, adjNode, time);
+            attrList[adjVertex.number].parent = currentVertex;
+            DFS(graph,attrList, adjVertex.number, time);
         }
     }
     time++;
-    attrList[currentNode].close = time;
-    attrList[currentNode].color = Attribute::BLACK;
+    attrList[currentVertex].close = time;
+    attrList[currentVertex].color = Attribute::BLACK;
 }
 
 void DFS(Graph& graph)
