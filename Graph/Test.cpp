@@ -81,6 +81,20 @@ void Prim_Test()
     Prim(gr);
 }
 
+void BellmanFord_Test()
+{
+    Graph gr;
+    const VertexNumber s = 1, t = 2, x = 3, y = 4, z = 5;
+    gr.addVertex(s, { {t,6}, {y,7} });
+    gr.addVertex(t, { {x,5}, {y,8}, {z,-4} });
+    gr.addVertex(x, { {t,-2} });
+    gr.addVertex(y, { {x,-3},{z,9} });
+    gr.addVertex(z, { {s,2}, {x,7 } });
+
+    cout << "BellmanFord:" << endl;
+    BellmanFord(gr,s);
+}
+
 int main()
 {
     BFS_Test();
@@ -91,4 +105,5 @@ int main()
     cout << endl << endl;
     Prim_Test();
     cout << endl << endl;
+    BellmanFord_Test();
 }

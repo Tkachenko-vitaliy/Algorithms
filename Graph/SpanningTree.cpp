@@ -9,11 +9,11 @@ using namespace std;
 
 struct Edge
 {
-    Edge(VertexNumber first = 0, VertexNumber second = 0, VertexWeight weight = 0) : first(first), second(second), weight(weight) {}
+    Edge(VertexNumber first = 0, VertexNumber second = 0, Weight weight = 0) : first(first), second(second), weight(weight) {}
 
     VertexNumber first;
     VertexNumber second;
-    VertexWeight weight;
+    Weight weight;
 };
 
 void Kruskal(Graph& graph)
@@ -87,18 +87,15 @@ void Kruskal(Graph& graph)
     }
 }
 
-const VertexNumber nilVertex = 0; //we concider 0 as non-exist vertex
-const VertexWeight notDefined = std::numeric_limits<VertexWeight>::max();
-
 void Prim(Graph& graph)
 {
     struct Node
     {
-        Node(VertexNumber num = nilVertex, VertexNumber prnt = nilVertex, VertexWeight weight = notDefined) :
+        Node(VertexNumber num = NIL_VERTEX, VertexNumber prnt = NIL_VERTEX, Weight weight = WEIGHT_NOT_DEFINED) :
             number(num), parent(prnt), key(weight) {}
         VertexNumber number;
         VertexNumber parent;
-        VertexWeight key;
+        Weight key;
     };
 
     using NodeQueue = list <Node>;
@@ -155,7 +152,7 @@ void Prim(Graph& graph)
             }
         }
 
-        if (currentNode.parent != nilVertex)
+        if (currentNode.parent != NIL_VERTEX)
             output.push_back(currentNode);
     }
 
