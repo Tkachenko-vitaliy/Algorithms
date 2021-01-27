@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -27,11 +28,14 @@ void BellmanFord(Graph& graph, VertexNumber source)
     auto IterateEdges = [&attributes](VertexNumber first, VertexNumber second, Weight weight)
     {
         //Relax procedure
-        Weight newDistance = attributes[first].distance + weight;
-        if (attributes[second].distance > newDistance)
+        if (attributes[first].distance != WEIGHT_NOT_DEFINED)
         {
-            attributes[second].distance = newDistance;
-            attributes[second].parent = first;
+            Weight newDistance = attributes[first].distance + weight;
+            if (attributes[second].distance > newDistance)
+            {
+                attributes[second].distance = newDistance;
+                attributes[second].parent = first;
+            }
         }
 
         return true;
@@ -84,11 +88,5 @@ void BellmanFord(Graph& graph, VertexNumber source)
             cout << endl;
         }
     }
-        
-    
+ }
 
-    
-
-
-
-}

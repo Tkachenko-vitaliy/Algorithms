@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="Path.cpp" />
+    <ClCompile Include="PriorityQueue.cpp" />
     <ClCompile Include="Search.cpp" />
     <ClCompile Include="SpanningTree.cpp" />
     <ClCompile Include="Test.cpp" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Alg.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="PriorityQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

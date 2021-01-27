@@ -1,4 +1,5 @@
 #include "Alg.h"
+#include "PriorityQueue.h"
 
 #include <set>
 #include <list>
@@ -96,44 +97,27 @@ void Prim(Graph& graph)
         VertexNumber number;
         VertexNumber parent;
         Weight key;
+
+        bool operator < (const Node& n) const { return key < n.key; }
     };
 
-    using NodeQueue = list <Node>;
-    //it is a priority queue.
-    //We need to know if the node is presented in queue. Therefore, we cannot use a queue from STL - it is not supported a search of items
-    //Using of list as queue is not the best option. It would be excellent if we used binary pyramid, but I was lazy to implement it
-    //Here, the least item is on bottom
+    using NodeQueue = PriorityQueue<Node>;
 
     NodeQueue nodeQueue;
-
-    auto decreaseKey = [&nodeQueue](NodeQueue::iterator item) //Shift item down that its value did not brake the sequence
-    {
-        NodeQueue::iterator nextItem = item;
-        nextItem++;
-        while (nextItem != nodeQueue.end() && nextItem->key > item->key)
-        {
-            nextItem++;
-        }
-
-        nodeQueue.insert(nextItem,*item);
-        nodeQueue.erase(item);
-        
-    };
 
     vector<Node> output;
 
     for (VertexNumber num = 1; num < graph.adjListSet.size(); num++) //number 0 is nil
     {
-        nodeQueue.push_back(Node(num));
+        nodeQueue.push(Node(num));
     }
 
-    nodeQueue.back().key = 0;
+    nodeQueue.least().key = 0;
 
     while (!nodeQueue.empty())
     {
-        Node currentNode = nodeQueue.back();
-        nodeQueue.pop_back();
-
+        Node currentNode = nodeQueue.extract();
+        
         Graph::AdjList& adjList = graph.adjListSet[currentNode.number];
         for (Graph::Vertex& adjNode : adjList)
         {
@@ -147,7 +131,7 @@ void Prim(Graph& graph)
                 {
                     adjInQueue->key = adjNode.weight;
                     adjInQueue->parent = currentNode.number;
-                    decreaseKey(adjInQueue);
+                    nodeQueue.decrease_priority(adjInQueue);
                 }
             }
         }
