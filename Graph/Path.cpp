@@ -1,8 +1,10 @@
 #include "Alg.h"
+#include "PriorityQueue.h"
 
 #include <vector>
 #include <iostream>
 #include <queue>
+#include <assert.h>
 
 using namespace std;
 
@@ -70,7 +72,6 @@ void BellmanFord(Graph& graph, VertexNumber source)
     }
     else
     {
-
         for (Attribute& attr : attributes)
         {
             if (attr.node == NIL_VERTEX)
@@ -90,3 +91,70 @@ void BellmanFord(Graph& graph, VertexNumber source)
     }
  }
 
+void Dijkstra(Graph& graph, VertexNumber source)
+{
+    struct Attribute
+    {
+        Attribute(VertexNumber number): node(number), parent(NIL_VERTEX), distance(WEIGHT_NOT_DEFINED) {}
+        bool operator< (const Attribute& attr) const { return distance < attr.distance; }
+
+        VertexNumber node;
+        VertexNumber parent;
+        Weight distance;
+    };
+    
+    using AttributeQueue = PriorityQueue<Attribute>;
+    AttributeQueue queue;
+    vector<Attribute> output;
+    
+    for (size_t vertex = 1; vertex <= graph.getVertexCount(); vertex++) //Nill vertex is ignored
+    {
+        Attribute attr(vertex);
+        if (source == vertex)
+            attr.distance = 0;
+        queue.push(attr);
+    }
+
+    output.push_back(Attribute(NIL_VERTEX)); //To facilitate a search of parent vertex
+
+    while (!queue.empty())
+    {
+        Attribute current = queue.pop();
+        output.push_back(current);
+        Graph::AdjList& ls = graph.adjListSet[current.node];
+        for (Graph::Vertex& adjNode : ls)
+        {
+            //Relax procedure
+            AttributeQueue::iterator adjNodeAttribute = find_if(queue.begin(), queue.end(), [&adjNode](const Attribute& attr) {return adjNode.number == attr.node; });
+            if (adjNodeAttribute != queue.end()) //Node has not been visited yet
+            {
+                Weight newDistance = current.distance + adjNode.weight;
+                if (adjNodeAttribute->distance > newDistance)
+                {
+                    adjNodeAttribute->distance = newDistance;
+                    adjNodeAttribute->parent = current.node;
+                    queue.decrease_priority(adjNodeAttribute);
+                }
+            }
+        }
+    }
+
+    sort(output.begin(), output.end(), [](const Attribute& first, const Attribute& second) {return first.node < second.node; });
+
+    for (Attribute& attr : output)
+    {
+        if (attr.node == NIL_VERTEX)
+            continue;
+
+        cout << attr.node << ": " << "(" << attr.distance << ") ";
+
+        VertexNumber parent = attr.parent;
+        while (parent != NIL_VERTEX)
+        {
+            cout << parent << '-';
+            parent = output[parent].parent;
+        }
+
+        cout << endl;
+    }
+}

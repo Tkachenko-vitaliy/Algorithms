@@ -112,11 +112,11 @@ void Prim(Graph& graph)
         nodeQueue.push(Node(num));
     }
 
-    nodeQueue.least().key = 0;
+    nodeQueue.back().key = 0;
 
     while (!nodeQueue.empty())
     {
-        Node currentNode = nodeQueue.extract();
+        Node currentNode = nodeQueue.pop();
         
         Graph::AdjList& adjList = graph.adjListSet[currentNode.number];
         for (Graph::Vertex& adjNode : adjList)

@@ -3,10 +3,10 @@
 #include <list>
 
 /*
-It is a priority queue.
+It is a priority queue. 
 Standard STL priority_queue does not suppot some necessary operations, such as "find item" and "change priority"
 As container, I used a list.  It is not the best option, it would be much better to use binary pyramid. However, I was lazy to implement it.
-Here, the least item is placed to the tail of the list. So, an iten in the tail of the list is the least.
+Here non-increasing queue is implemented: the head list item is the most, the tail list item is the least.
 */
 template <typename T, typename Compare = std::less<T> >
 class PriorityQueue
@@ -20,25 +20,26 @@ public:
     iterator end() { return queue.end(); } 
 
     void push(const T& item);
-    reference least() { return queue.back(); };
-    reference most() { return queue.front(); }
+    T pop();
+    reference back() { return queue.back(); };
+    reference front() { return queue.front(); }
     bool empty() const { return queue.empty(); }
     void clear() { queue.clear(); }
 
-    T extract();
+    
     void decrease_priority(iterator item);
 
 private:
-    using container_queue = typename std::list<T>;
-    container_queue queue;
+    using container = typename std::list<T>;
+    container queue;
     Compare comp;
 };
 
 template <typename T, typename Compare>
 void PriorityQueue<T, Compare>::push(const T& item)
 {
-    typename container_queue::iterator it = queue.begin();
-    while (it != queue.end() && !comp(item, (*it)) )
+    typename container::iterator it = queue.begin();
+    while (it != queue.end() && comp(item, (*it)) )
     {
         it++;
     }
@@ -47,7 +48,7 @@ void PriorityQueue<T, Compare>::push(const T& item)
 }
 
 template <typename T, typename Compare>
-T PriorityQueue<T, Compare>::extract()
+T PriorityQueue<T, Compare>::pop()
 {
     T item = queue.back();
     queue.pop_back();
@@ -57,7 +58,7 @@ T PriorityQueue<T, Compare>::extract()
 template <typename T, typename Compare>
 void PriorityQueue<T, Compare>::decrease_priority(iterator item)
 {
-    typename container_queue::iterator nextItem = item;
+    typename container::iterator nextItem = item;
     nextItem++;
     while (nextItem != queue.end() && comp(*item , *nextItem))
     {

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void BFS_Test()
+void BFS_test()
 {
     Graph g;
     g.addVertex(1, { 2,3 });
@@ -25,7 +25,7 @@ void BFS_Test()
     BFS(g, 1);
 }
 
-void DFS_Test()
+void DFS_test()
 {
     Graph g;
     g.addVertex(1, { 2,3 });
@@ -45,7 +45,7 @@ void DFS_Test()
     DFS(g);
 }
 
-void Kruskal_Test()
+void Kruskal_test()
 {
     Graph gr;
     const VertexNumber a = 1, b = 2, c = 3, d = 4, e = 5, f = 6, g = 7, h = 8, i = 9;
@@ -63,7 +63,7 @@ void Kruskal_Test()
     Kruskal(gr);
 }
 
-void Prim_Test()
+void Prim_test()
 {
     Graph gr;
     const VertexNumber a = 1, b = 2, c = 3, d = 4, e = 5, f = 6, g = 7, h = 8, i = 9;
@@ -95,15 +95,26 @@ void BellmanFord_Test()
     BellmanFord(gr,s);
 }
 
+void Dijkstra_test()
+{
+    Graph gr;
+    const VertexNumber s = 1, t = 2, x = 3, y = 4, z = 5;
+    gr.addVertex(s, { {t,10}, {y,5} });
+    gr.addVertex(t, { {x,1}, {y,2} });
+    gr.addVertex(x, { {z,4} });
+    gr.addVertex(y, { {t,3},{z,2}, {x,9} });
+    gr.addVertex(z, { {s,7}, {x,6} });
+
+    cout << "Dijkstra:" << endl;
+    Dijkstra(gr, s);
+}
+
 int main()
 {
-    BFS_Test();
-    cout << endl << endl;
-    DFS_Test();
-    cout << endl << endl;
-    Kruskal_Test();
-    cout << endl << endl;
-    Prim_Test();
-    cout << endl << endl;
-    BellmanFord_Test();
+    BFS_test(); cout << endl << endl;
+    DFS_test(); cout << endl << endl;
+    Kruskal_test(); cout << endl << endl;
+    Prim_test(); cout << endl << endl;
+    BellmanFord_Test(); cout << endl << endl;
+    Dijkstra_test(); cout << endl << endl;
 }
