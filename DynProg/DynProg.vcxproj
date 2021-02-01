@@ -148,6 +148,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DynProg.cpp" />
+    <ClCompile Include="RodCutter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RodCutter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

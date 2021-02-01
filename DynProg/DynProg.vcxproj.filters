@@ -18,5 +18,13 @@
     <ClCompile Include="DynProg.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RodCutter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RodCutter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
