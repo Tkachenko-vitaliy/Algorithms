@@ -2,6 +2,21 @@
 //
 #include "Graph.h"
 
+Graph::Graph()
+{
+
+}
+
+Graph::Graph(const Graph& gr)
+{
+    *this = gr;
+}
+
+Graph::Graph(Graph&& gr)
+{
+    *this = gr;
+}
+
 void Graph::addVertex(VertexNumber number, std::initializer_list<VertexNumber> adjVertices)
 {
     if (number >= adjListSet.size())
@@ -49,4 +64,50 @@ size_t Graph::getVertexCount() const
     {
         return adjListSet.size() - 1;
     }
+}
+
+Graph Graph::getTransposedDirection() const
+{
+    Graph retGraph;
+    retGraph.adjListSet.resize(adjListSet.size());
+
+    for (VertexNumber source = 0; source < adjListSet.size(); source++)
+    {
+        for (size_t dest = 0; dest < adjListSet.size(); dest++)
+        {
+            const AdjList& adjList = adjListSet[dest];
+            for (const Vertex& v : adjList)
+            {
+                if (v.number == source)
+                {
+                    Vertex newVertex(dest, v.weight);
+                    retGraph.adjListSet[source].push_back(newVertex);
+                }
+            }
+        }
+    }
+
+    return retGraph;
+}
+
+AdjacencyMatrix Graph::getAdjacencyMatrix() const
+{
+    AdjacencyMatrix adjMatrix(getVertexCount(), getVertexCount());
+
+    adjMatrix.fill(WEIGHT_NOT_DEFINED);
+
+    for (size_t i = 0; i < getVertexCount(); i++)
+    {
+        adjMatrix.set(i, i, 0);
+    }
+
+    forEachEadge(
+        [&adjMatrix](VertexNumber source, VertexNumber dest, Weight weight)
+        {
+            adjMatrix.set(source-1, dest-1, weight);
+            return true;
+        }
+    );
+
+    return adjMatrix;
 }
