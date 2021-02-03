@@ -66,7 +66,7 @@ size_t Graph::getVertexCount() const
     }
 }
 
-Graph Graph::getTransposedDirection() const
+Graph Graph::getInversedDirection() const
 {
     Graph retGraph;
     retGraph.adjListSet.resize(adjListSet.size());

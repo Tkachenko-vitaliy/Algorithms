@@ -117,7 +117,21 @@ void PairsAsMatrixMultiplication_Test()
     gr.addVertex(3, { {2,4} });
     gr.addVertex(4, { {1,2},{3,-5} });
     gr.addVertex(5, { {4,6} });
+    cout << "PairsAsMatrixMultiplication:" << endl;
     PairsAsMatrixMultiplication(gr);
+}
+
+void FloydWarshall_Test()
+{
+    Graph gr;
+    gr.addVertex(1, { {2,3}, {3,8}, {5, -4} });
+    gr.addVertex(2, { {5,7}, {4,1} });
+    gr.addVertex(3, { {2,4} });
+    gr.addVertex(4, { {1,2},{3,-5} });
+    gr.addVertex(5, { {4,6} });
+
+    cout << "FloydWarshall" << endl << endl;
+    FloydWarshall(gr);
 }
 
 int main()
@@ -129,4 +143,5 @@ int main()
     BellmanFord_Test(); cout << endl << endl;
     Dijkstra_test(); cout << endl << endl;
     PairsAsMatrixMultiplication_Test(); cout << endl << endl;
+    FloydWarshall_Test(); cout << endl << endl;
 }

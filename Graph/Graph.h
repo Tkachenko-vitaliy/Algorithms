@@ -40,7 +40,7 @@ public:
     void addVertex(VertexNumber number, std::initializer_list<VertexNumberWeight> adjVertices);
     size_t getVertexCount() const; //a count without nill vertex
     void forEachEadge(std::function<bool(VertexNumber source, VertexNumber dest, Weight weight)>) const;
-    Graph getTransposedDirection() const; //return graph with transponsed direction: all incoming vertex are turned into outgoing
+    Graph getInversedDirection() const; //return graph with inversed direction: all incoming vertex are turned into outgoing
     AdjacencyMatrix getAdjacencyMatrix() const;
 
     Graph& operator = (const Graph& copy) { adjListSet = copy.adjListSet; return *this;  }

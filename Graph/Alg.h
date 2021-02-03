@@ -9,3 +9,4 @@ void Prim(Graph& graph);
 void BellmanFord(Graph& graph, VertexNumber source);
 void Dijkstra(Graph& graph, VertexNumber source);
 void PairsAsMatrixMultiplication(Graph& graph);
+void FloydWarshall(Graph& graph);
