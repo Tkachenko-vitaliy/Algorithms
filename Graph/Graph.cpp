@@ -14,8 +14,25 @@ Graph::Graph(const Graph& gr)
 
 Graph::Graph(Graph&& gr)
 {
-    *this = gr;
+    *this = std::move(gr);
 }
+
+void Graph::addVertex(VertexNumber number)
+{
+    if (number >= adjListSet.size())
+        adjListSet.resize(number + 1);
+}
+
+void Graph::addAdjacentVertex(VertexNumber number, VertexNumber adjNumber)
+{
+    adjListSet[number].emplace_back(Vertex(adjNumber));
+}
+
+void Graph::addAdjacentVertex(VertexNumber number, VertexNumber adjNumber, Weight weight)
+{
+    adjListSet[number].emplace_back(Vertex(adjNumber, weight));
+}
+
 
 void Graph::addVertex(VertexNumber number, std::initializer_list<VertexNumber> adjVertices)
 {
@@ -23,10 +40,9 @@ void Graph::addVertex(VertexNumber number, std::initializer_list<VertexNumber> a
         adjListSet.resize(number +1);
     for (auto &item : adjVertices)
     {
-        adjListSet[number].push_back(Vertex(item));
+        adjListSet[number].emplace_back(Vertex(item));
     }
 }
-
 
 void Graph::addVertex(VertexNumber number, std::initializer_list<VertexNumberWeight> adjVertices)
 {
@@ -34,7 +50,7 @@ void Graph::addVertex(VertexNumber number, std::initializer_list<VertexNumberWei
         adjListSet.resize(number + 1);
     for (auto &item : adjVertices)
     {
-        adjListSet[number].push_back(Vertex(item.first, item.second));
+        adjListSet[number].emplace_back(Vertex(item.first, item.second));
     }
 }
 
@@ -110,4 +126,48 @@ AdjacencyMatrix Graph::getAdjacencyMatrix() const
     );
 
     return adjMatrix;
+}
+
+bool Graph::isEdgeExist(VertexNumber source, VertexNumber dest) const
+{
+    if (source > adjListSet.size())
+    {
+        return false;
+    }
+
+    const AdjList& ls = adjListSet[source];
+
+    AdjList::const_iterator it = std::find_if(ls.begin(), ls.end(), [dest](const Vertex& v)
+        {
+            return v.number == dest;
+        }
+    );
+
+    return it != ls.end();
+}
+
+Weight Graph::getWeight(VertexNumber source, VertexNumber dest) const
+{
+    const AdjList& ls = adjListSet[source];
+
+    AdjList::const_iterator it = std::find_if(ls.begin(), ls.end(), [dest](const Vertex& v)
+        {
+            return v.number == dest;
+        }
+    );
+
+    return it->weight;
+}
+
+void Graph::setWeight(VertexNumber source, VertexNumber dest, Weight weight)
+{
+    AdjList& ls = adjListSet[source];
+
+    AdjList::iterator it = std::find_if(ls.begin(), ls.end(), [dest](const Vertex& v)
+        {
+            return v.number == dest;
+        }
+    );
+
+    it->weight = weight;
 }

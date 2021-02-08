@@ -20,7 +20,7 @@ struct Attribute
     Attribute()
     {
         color = WHITE;
-        parent = 0;
+        parent = NIL_VERTEX;
         distance = NO_DESTINATION;
         int open = 0;
         int close = 0;
@@ -65,7 +65,7 @@ void BFS(Graph& graph, VertexNumber source)
     for (size_t i = 0; i < attrList.size(); i++)
     {
         Attribute attrItem = attrList[i];
-        if (attrItem.distance == NO_DESTINATION)
+        if (attrItem.distance == 0)
             cout << i << '-' << 'N' << ' ';
         else
             cout << i << '-' << attrItem.distance << ' ';

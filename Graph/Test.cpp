@@ -134,6 +134,21 @@ void FloydWarshall_Test()
     FloydWarshall(gr);
 }
 
+void EdmondsKarp_Test()
+{
+    const VertexNumber s = 1, v1 = 2, v2 = 3, v3 = 4, v4 = 5, t = 6;
+    Graph gr;
+    gr.addVertex(s, { {v1,16}, {v2,13} });
+    gr.addVertex(v1, { {v3,12} });
+    gr.addVertex(v2, { {v1,4}, {v4,14} });
+    gr.addVertex(v3, { {v2,9}, {t, 20} });
+    gr.addVertex(v4, { {v3,7}, {t, 4} });
+    gr.addVertex(t);
+
+    cout << "Edmonds-Karp" << endl;
+    EdmondsKarp(gr, s, t);
+}
+
 int main()
 {
     BFS_test(); cout << endl << endl;
@@ -144,4 +159,5 @@ int main()
     Dijkstra_test(); cout << endl << endl;
     PairsAsMatrixMultiplication_Test(); cout << endl << endl;
     FloydWarshall_Test(); cout << endl << endl;
+    EdmondsKarp_Test(); cout << endl << endl;
 }

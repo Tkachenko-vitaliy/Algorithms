@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AllVertexPath.cpp" />
+    <ClCompile Include="Flow.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="OneVertexPath.cpp" />
     <ClCompile Include="Search.cpp" />

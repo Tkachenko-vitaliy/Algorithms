@@ -36,12 +36,18 @@ public:
 
     using VertexNumberWeight = std::pair< VertexNumber, Weight>;
 
+    void addVertex(VertexNumber number);
+    void addAdjacentVertex(VertexNumber number, VertexNumber adjNumber);
+    void addAdjacentVertex(VertexNumber number, VertexNumber adjNumber, Weight weight);
     void addVertex(VertexNumber number, std::initializer_list<VertexNumber> adjVertices);
     void addVertex(VertexNumber number, std::initializer_list<VertexNumberWeight> adjVertices);
     size_t getVertexCount() const; //a count without nill vertex
     void forEachEadge(std::function<bool(VertexNumber source, VertexNumber dest, Weight weight)>) const;
     Graph getInversedDirection() const; //return graph with inversed direction: all incoming vertex are turned into outgoing
     AdjacencyMatrix getAdjacencyMatrix() const;
+    bool isEdgeExist(VertexNumber source, VertexNumber dest) const;
+    Weight getWeight(VertexNumber source, VertexNumber dest) const;
+    void setWeight(VertexNumber source, VertexNumber dest, Weight weight);
 
     Graph& operator = (const Graph& copy) { adjListSet = copy.adjListSet; return *this;  }
     Graph& operator = (Graph&& copy) { adjListSet = std::move(copy.adjListSet); return *this; }
