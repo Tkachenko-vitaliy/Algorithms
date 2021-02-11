@@ -6,6 +6,7 @@ int main()
 {
     TestBinaryTree();
     TestRBTree();
+    TestAVLTree();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

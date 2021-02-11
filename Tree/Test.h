@@ -2,3 +2,4 @@
 
 void TestBinaryTree();
 void TestRBTree();
+void TestAVLTree();

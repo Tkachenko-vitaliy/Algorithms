@@ -1,6 +1,7 @@
 #include "Test.h"
 #include "BinaryTree.h"
 #include "RBTree.h"
+#include "AVLTree.h"
 
 #include <iostream>
 #include <assert.h>
@@ -34,9 +35,10 @@ void CheckErase(RBTree& tree, int key)
 
 void TestBinaryTree()
 {
-    cout << "TestBinaryTree..." << endl;
+    cout << "Test BinaryTree..." << endl;
     BinaryTree tree;
     tree.insert(1, 100); tree.insert(7, 700); tree.insert(5, 500); tree.insert(3, 300);  tree.insert(9, 900);
+    cout << "source: " << 1 << ' ' << 7 << ' ' << 5 << ' ' << 3 << ' ' << 9 << ' ' << endl;
 
     int value; bool fres;
     fres = tree.find(3, value);
@@ -84,7 +86,7 @@ void TestBinaryTree()
 
 void TestRBTree()
 {
-    cout << "TestRBTree..." << endl;
+    cout << "Test RBTree..." << endl;
     RBTree tree;
 
     tree.insert(1, 100); tree.insert(7, 700); tree.insert(5, 500); tree.insert(3, 300);  tree.insert(9, 900);
@@ -119,6 +121,27 @@ void TestRBTree()
     CheckErase(tree, 5);
     CheckErase(tree, 3);
     CheckErase(tree, 9);
+
+    cout << endl;
+}
+
+void TestAVLTree()
+{
+    cout << "Test AVLTree..." << endl;
+    AVLTree tree;
+
+    tree.insert(4, 4); tree.insert(5, 5); tree.insert(7, 7); tree.insert(2, 2);
+    cout << "insert 4, 5, 7, 2" << endl; cout << "----------------" << endl;
+    tree.output(); cout << "----------------" << endl;
+    cout << "insert 1" << endl; cout << "----------------" << endl;
+    tree.insert(1, 1); 
+    tree.output(true); cout << "----------------" << endl;
+    cout << "insert 3" << endl; cout << "----------------" << endl;
+    tree.insert(3, 3);
+    tree.output(true); cout << "----------------" << endl;
+    cout << "insert 6" << endl; cout << "----------------" << endl;
+    tree.insert(6, 6);
+    tree.output(true); cout << "----------------" << endl;
 
     cout << endl;
 }
