@@ -1,8 +1,11 @@
 #pragma once
 
+#include <memory>
+
 class AVLTree
 {
 public:
+    ~AVLTree();
     void insert(int key, int value);
     size_t getHeightLeft();
     size_t getHeightRight();
@@ -17,6 +20,10 @@ private:
         Node(int k = 0, int v = 0)
         {
             left = nullptr; right = nullptr; key = k; value = v; balance = 0;
+        }
+        ~Node() 
+        {
+            delete left; delete right;
         }
 
         Node* left;

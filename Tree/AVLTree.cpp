@@ -3,6 +3,11 @@
 #include <assert.h>
 #include <iostream>
 
+AVLTree::~AVLTree()
+{
+    delete root;
+}
+
 AVLTree::Node* AVLTree::rotateLeftSmall(Node* node)
 {
     Node* pivot = node->right;
