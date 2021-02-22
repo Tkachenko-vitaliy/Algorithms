@@ -322,6 +322,9 @@ void Fibonacci::heapLink(Node* asChild, Node* asRoot)
 
 void Fibonacci::decreaseKey(key_t oldValue, key_t newValue)
 {
+    //We find the item with key. It is slow; it might be better to use a pointer to item as input parameter instead of key value. 
+    //That is, to use the pointer to the Node* as iterator.
+    //If so, we will have to return appropriate pointer from insert method
     Node* node = find(oldValue);
     assert(node); //key is not presented
     assert(newValue <= oldValue);
@@ -398,6 +401,7 @@ Fibonacci::Node* Fibonacci::find(key_t key)
 
 void Fibonacci::erase(key_t key)
 {
+    //Slow operation - see notes for decreaseKey method
     Node* node = find(key);
 
     if (node == nullptr)
